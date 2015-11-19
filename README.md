@@ -8,4 +8,6 @@ HHS Lunch Balance provides lunch balance notifications for Hamilton School Distr
 #Warning
 This program will only work for students and staff members in the Hamilton School District.
 
+#Setup
+A full setup guide is available at [/wiki/Setup](https://github.com/johnathanmartin/hhslunchbalance/wiki/Setup)
 
