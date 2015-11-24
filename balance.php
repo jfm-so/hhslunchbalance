@@ -1,25 +1,28 @@
 <?php
 include('parse.php');
-$params = array('http' => array(
-    'method' => 'GET',
-    'header'=>"Accept-language: en\r\n" .
-              "Cookie: noodle=$noodle\r\n"
-));
-$sUrl = "https://home.hamilton.k12.wi.us";
-$ctx = stream_context_create($params);
-$fp = @fopen($sUrl, 'rb', false, $ctx);
-if (!$fp)
+$curl = curl_init('https://home.hamilton.k12.wi.us');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl, CURLOPT_COOKIE, "noodle=$noodle;");
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+$page = curl_exec($curl);
+
+if(curl_errno($curl)) // check for execution errors
 {
-    throw new Exception("Problem with $sUrl, $php_errormsg");
+        echo 'Scraper error: ' . curl_error($curl);
+        exit;
 }
 
-$response = @stream_get_contents($fp);
-if ($response === false) 
-{
-    throw new Exception("Problem reading data from $sUrl, $php_errormsg");
-}
+curl_close($curl);
+
 $regex = '/\$(\d+\.\d{2})/';
-preg_match($regex,$response,$match);
+if ( preg_match($regex, $page, $match) )
+{
 $bal=$match[0];
-echo "Bal: $bal\n";
+echo $bal;
+}
+else {
+print "Error";
+}
 ?>
+
