@@ -18,10 +18,10 @@ curl_close($curl);
 $regex = '/\$(\d+\.\d{2})/';
 if ( preg_match($regex, $page, $match) )
 {
-$bal=$match[0];
-echo $bal;
-}
-else {
+        $bal=$match[0];
+        echo $bal;
+        
+} else {
 print "Error";
 }
 ?>
