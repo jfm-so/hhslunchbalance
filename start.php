@@ -8,3 +8,9 @@ if ($dbactive == "true") {
 }
 if ($sgactive == "true") {
     echo "\nSendgrid Active\n";
+    include('email.php');
+}
+if ($twilioactive == "true") {
+    echo "\nTwilio Active\n";
+    include('twilio.php');
+}
